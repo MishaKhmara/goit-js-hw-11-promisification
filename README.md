@@ -1,1 +1,1 @@
-# MishaKhmara-goit-js-hw-04
+# MishaKhmara-goit-js-hw-06
