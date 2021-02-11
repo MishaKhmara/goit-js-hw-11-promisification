@@ -1,28 +1,48 @@
 import users from "./users.js";
 // Задание 1
-const getUserNames = users.map(user => user.name)
-console.table(getUserNames);
+const getUserNames = users => {
+  const userNames = users.map((user)=>user.name);
+  return userNames
+};
+console.log(getUserNames(users));
 // Задание 2
-const getUsersWithEyeColor = (users, color) =>  users.filter(user => user.eyeColor === color);
-console.table(getUsersWithEyeColor(users, 'blue')); // [объект Moore Hensley, объект Sharlene Bush, объект Carey Barr]
+const getUsersWithEyeColor = (users, color) => {
+  const eyeColor = users.filter((user)=>user.eyeColor === color)
+  return eyeColor
+};
+
+console.log(getUsersWithEyeColor(users, 'blue')); 
 // Задание 3
-const getUsersWithGender = (users, gender) => users.filter(user => user.gender === gender) 
-  console.table(getUsersWithGender(users, 'male')); // [ 'Moore Hensley', 'Ross Vazquez', 'Carey Barr', 'Blackburn Dotson' ]
+const getUsersWithGender = (users, gender) => {
+    const usersWithGender = users.filter((user)=>user.gender === gender).map((user)=>user.name)
+    return usersWithGender
+  };
+  
+  console.log(getUsersWithGender(users, 'male'));
+   // [ 'Moore Hensley', 'Ross Vazquez', 'Carey Barr', 'Blackburn Dotson' ]
 // Задание 4
-const getInactiveUsers = users.filter(user => user.isActive)
-console.table(getInactiveUsers); // [объект Moore Hensley, объект Ross Vazquez, объект Blackburn Dotson]
+const getInactiveUsers = users => {
+  const inactiveUsers = users.filter((user)=>!user.isActive)
+  return inactiveUsers
+};
+console.log(getInactiveUsers(users));
 // Задание 5
-const getUserWithEmail = (users, email) => users.find
-  (users => users.email === email)
+const getUserWithEmail = (users, email) => {
+  const userWithEmail = users.find((user)=>user.email === email)
+  return userWithEmail
+};
 console.log(getUserWithEmail(users, 'shereeanthony@kog.com')); // {объект пользователя Sheree Anthony}
 console.log(getUserWithEmail(users, 'elmahead@omatom.com')); // {объект пользователя Elma Head}
 // Задание 6
-const getUsersWithAge = (users, min, max) => users.filter(user => min <= user.age && user.age <= max);
+const getUsersWithAge = (users, min, max) => {
+  const usersWithAge = users.filter(({age})=>age >= min && age <=max)
+  return usersWithAge
+};
 
-console.table(getUsersWithAge(users, 20, 30)); // [объект Ross Vazquez, объект Elma Head, объект Carey Barr]
+console.log(getUsersWithAge(users, 20, 30)); // [объект Ross Vazquez, объект Elma Head, объект Carey Barr]
 
-console.table(getUsersWithAge(users, 30, 40));
-// [объект Moore Hensley, объект Sharlene Bush, объект Blackburn Dotson, объект Sheree Anthony]
+console.log(getUsersWithAge(users, 30, 40));
+
 // Задание 7
 
 const calculateTotalBalance = users => users.reduce(
@@ -37,19 +57,19 @@ const getUsersWithFriend = (users, friendName) =>
     console.log(getUsersWithFriend(users, "Briana Decker")); // [ 'Sharlene Bush', 'Sheree Anthony' ]
 console.log(getUsersWithFriend(users, "Goldie Gentry")); // [ 'Elma Head', 'Sheree Anthony' ]
 // Задание 9
-const getNamesSortedByFriendsCount = users =>
-  users
-    .sort((a, b) => a.friends.length - b.friends.length)
-    .map(user => user.name);
+const getNamesSortedByFriendsCount = users => {
+  const SortedByFriendsCount =  [...users].sort((a, b) => a.friends.length - b.friends.length).flatMap(user => user.name);
+  return SortedByFriendsCount
+};
+
 console.log(getNamesSortedByFriendsCount(users));
-// [ 'Moore Hensley', 'Sharlene Bush', 'Elma Head', 'Carey Barr', 'Blackburn Dotson', 'Sheree Anthony', 'Ross Vazquez' ]
+[ 'Moore Hensley', 'Sharlene Bush', 'Elma Head', 'Carey Barr', 'Blackburn Dotson', 'Sheree Anthony', 'Ross Vazquez' ]
+
 // Задание 10
-const getSortedUniqueSkills = users => 
-users
-  .map(user=>user.skills)
-  .reduce((allSkills, user) => [...allSkills, ...user], [])
-  .filter((elem, index, array) => array.indexOf(elem) === index)
-  .sort((b, a) => b.localeCompare(a, 'en'));
- 
-console.log(getSortedUniqueSkills(users));
-// [ 'adipisicing', 'amet', 'anim', 'commodo', 'culpa', 'elit', 'ex', 'ipsum', 'irure', 'laborum', 'lorem', 'mollit', 'non', 'nostrud', 'nulla', 'proident', 'tempor', 'velit', 'veniam' ]
+const getSortedUniqueSkills = users => {
+  const sortedUniqueSkills = users.flatMap((user)=> user.skills).filter(
+    (user, index, array) => array.indexOf(user) === index).sort((a,b)=>a.localeCompare(b))
+  return sortedUniqueSkills
+  };
+  
+  console.log(getSortedUniqueSkills(users));
