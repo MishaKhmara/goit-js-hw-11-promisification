@@ -14,5 +14,5 @@ const ingredients = [
   });
   
   ingredientsListRef.append(...elements)
-  console.log(ingredientsListRef)
+  // console.log(ingredientsListRef)
   
