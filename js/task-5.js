@@ -13,7 +13,7 @@ refs.input.addEventListener('input',inputform)
 function inputform (event){
    if (event.currentTarget.value !== refs.input){
    
-    refs.hellowRef.textContent = event.currentTarget.value
+    refs.hellowRef.textContent = event.currentTarget.value ?event.currentTarget.value : 'незнакомец';
    }
       
     
