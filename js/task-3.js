@@ -1,46 +1,54 @@
-const images = [
-    {
-      url:
-        'https://images.pexels.com/photos/140134/pexels-photo-140134.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-      alt: 'White and Black Long Fur Cat',
-    },
-    {
-      url:
-        'https://images.pexels.com/photos/213399/pexels-photo-213399.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-      alt: 'Orange and White Koi Fish Near Yellow Koi Fish',
-    },
-    {
-      url:
-        'https://images.pexels.com/photos/219943/pexels-photo-219943.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-      alt: 'Group of Horses Running',
-    },
-  ];
-
-//------------------------------ вариант первый-------------------------//
-
-//   const imagesRef = document.querySelector('#gallery');
-//   const componentRef = images.map(element =>{
-//   const listRef = document.createElement('li')
-//   listRef.classList.add('gallery-list')
-//   const pictureRef = document.createElement('img')
-//   pictureRef.classList.add('gallery-picture')
-//   listRef.appendChild(pictureRef)
+const randomIntegerFromInterval = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
   
-//   pictureRef.src = element.url;
-//   pictureRef.alt =  element.alt
-//    return listRef
-//  })
-//   imagesRef.append(...componentRef)
+  const makeTransaction = (transaction) => {
+    return new Promise((resolve, reject) => {
+      const delay = randomIntegerFromInterval(200, 500);
   
-//     console.log(imagesRef)
+      setTimeout(() => {
+        const canProcess = Math.random() > 0.3;
+  
+        if (canProcess) {
+            const data = { id: transaction.id, time: delay };
+            resolve(data);
+        } else {
+            reject(transaction.id);
+        }
+      }, delay);
+    });
+  };
 
-//------------------------------ вариант второй-------------------------//
-const createGalleryItem = ({ url, alt }) =>
-  `<li class='gallery-list'><img class='gallery-picture' src="${url}" alt="${alt}"</li>`;
-const galleryMarkup = images.reduce(
-  (acc, item) => acc + createGalleryItem(item),
-  ""
-);
-const imagesRef = document.querySelector("#gallery");
-imagesRef.insertAdjacentHTML("afterbegin", galleryMarkup);
-
+  const logSuccess = (data) => {
+    console.log(`Transaction ${data.id} processed in ${data.time}ms`);
+  };
+  
+  const logError = id => {
+    console.warn(`Error processing transaction ${id}. Please try again later.`);
+  };
+  
+  /*
+   * Работает так
+   */
+//   makeTransaction({ id: 70, amount: 150 }, logSuccess, logError);
+//   makeTransaction({ id: 71, amount: 230 }, logSuccess, logError);
+//   makeTransaction({ id: 72, amount: 75 }, logSuccess, logError);
+//   makeTransaction({ id: 73, amount: 100 }, logSuccess, logError);
+  /*
+   * Должно работать так
+   */
+  makeTransaction({ id: 70, amount: 150 })
+    .then(logSuccess)
+    .catch(logError);
+  
+  makeTransaction({ id: 71, amount: 230 })
+    .then(logSuccess)
+    .catch(logError);
+  
+  makeTransaction({ id: 72, amount: 75 })
+    .then(logSuccess)
+    .catch(logError);
+  
+  makeTransaction({ id: 73, amount: 100 })
+    .then(logSuccess)
+    .catch(logError);
